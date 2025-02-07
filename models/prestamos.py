@@ -6,9 +6,9 @@ from config.db import Base
 
 class EstatusPrestamo(str, enum.Enum):
     """Enumeración de los posibles estados de un préstamo."""
-    ACTIVO = "Activo"
-    DEVUELTO = "Devuelto"
-    VENCIDO = "Vencido"
+    Activo = "Activo"
+    Devuelto = "Devuelto"
+    Vencido = "Vencido"
 
 class Prestamo(Base):
     """Modelo de la tabla 'tbb_prestamos'."""
