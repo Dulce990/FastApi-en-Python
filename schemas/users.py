@@ -1,13 +1,12 @@
-"""Este módulo define los esquemas para el modelo User."""
-
 from datetime import datetime
 from pydantic import BaseModel
+
 class UserBase(BaseModel):
     """Esquema base para el usuario."""
     nombre: str
     primerApellido: str
     segundoApellido: str
-    tipoUsuario: str
+    TipoUsuario: str
     nombreUsuario: str
     correoElectronico: str
     contrasena: str
@@ -15,7 +14,6 @@ class UserBase(BaseModel):
     estatus: str
     fechaRegistro: datetime
     fechaActualizacion: datetime
-
 
 class UserCreate(UserBase):
     """Esquema para la creación de un usuario."""

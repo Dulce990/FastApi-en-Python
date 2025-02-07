@@ -27,7 +27,7 @@ def create_user(db: Session, user: UserCreate):
         nombre=user.nombre,
         primerApellido=user.primerApellido,
         segundoApellido=user.segundoApellido,
-        tipoUsuario=user.tipoUsuario,
+        TipoUsuario=user.TipoUsuario,
         nombreUsuario=user.nombreUsuario,
         correoElectronico=user.correoElectronico,
         contrasena=user.contrasena,
