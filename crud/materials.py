@@ -1,17 +1,27 @@
-import models.materials
-import schemas.materials
+"""
+Módulo de operaciones CRUD para materiales.
+
+Este módulo proporciona funciones para obtener, crear, actualizar y eliminar registros de materiales
+en la base de datos utilizando SQLAlchemy.
+"""
+
 from sqlalchemy.orm import Session
+from models.materials import Material
+from schemas.materials import MaterialCreate, MaterialUpdate
 
 def get_materials(db: Session, skip: int = 0, limit: int = 10):
-    return db.query(models.materials.Material).offset(skip).limit(limit).all()
+    """Obtiene una lista de materiales con paginación."""
+    return db.query(Material).offset(skip).limit(limit).all()
 
-def get_material(db: Session, id: int):
-    return db.query(models.materials.Material).filter(models.materials.Material.id == id).first()
+def get_material(db: Session, material_id: int):
+    """Obtiene un material por su ID."""
+    return db.query(Material).filter(Material.id == material_id).first()
 
-def create_material(db: Session, material: schemas.materials.MaterialCreate):
-    db_material = models.materials.Material(
+def create_material(db: Session, material: MaterialCreate):
+    """Crea un nuevo material en la base de datos."""
+    db_material = Material(
         TipoMaterial=material.TipoMaterial,
-        Marca=material.Marca,  
+        Marca=material.Marca,
         Modelo=material.Modelo,
         Estado=material.Estado
     )
@@ -20,8 +30,9 @@ def create_material(db: Session, material: schemas.materials.MaterialCreate):
     db.refresh(db_material)
     return db_material
 
-def update_material(db: Session, id: int, material: schemas.materials.MaterialUpdate):
-    db_material = db.query(models.materials.Material).filter(models.materials.Material.id == id).first()
+def update_material(db: Session, material_id: int, material: MaterialUpdate):
+    """Actualiza los datos de un material existente."""
+    db_material = db.query(Material).filter(Material.id == material_id).first()
     if db_material:
         for var, value in vars(material).items():
             if value is not None:
@@ -30,8 +41,9 @@ def update_material(db: Session, id: int, material: schemas.materials.MaterialUp
         db.refresh(db_material)
     return db_material
 
-def delete_material(db: Session, id: int):
-    db_material = db.query(models.materials.Material).filter(models.materials.Material.id == id).first()
+def delete_material(db: Session, material_id: int):
+    """Elimina un material de la base de datos por su ID."""
+    db_material = db.query(Material).filter(Material.id == material_id).first()
     if db_material:
         db.delete(db_material)
         db.commit()
