@@ -49,17 +49,18 @@ async def create_material(material_data: schemas.materials.MaterialCreate,
 async def update_material(material_id: int, material_data: schemas.materials.MaterialUpdate,
                         db: Session = Depends(get_db)):
     """Actualiza un material existente."""
-    db_material = crud.materials.update_material(db=db, id=material_id,
-                                                material=material_data)
+    db_material = crud.materials.update_material(db=db, material_id=material_id, material=material_data)
     if db_material is None:
         raise HTTPException(status_code=404, detail="Material not found")
     return db_material
+
 
 @material.delete("/materials/{material_id}", response_model=schemas.materials.Material,
                 tags=["Materiales"])
 async def delete_material(material_id: int, db: Session = Depends(get_db)):
     """Elimina un material por su ID."""
-    db_material = crud.materials.delete_material(db=db, id=material_id)
+    db_material = crud.materials.delete_material(db=db, material_id=material_id)
     if db_material is None:
         raise HTTPException(status_code=404, detail="Material not found")
     return db_material
+
