@@ -3,6 +3,7 @@
 import enum
 from sqlalchemy import Column, Integer, String, Enum
 from config.db import Base
+from sqlalchemy.orm import relationship
 
 class TipoMaterial(str, enum.Enum):
     """Enumeración de los tipos de material."""
@@ -20,7 +21,9 @@ class Material(Base):
     """Modelo de la tabla 'tbb_Material'."""
     __tablename__ = "tbb_Material"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    TipoMaterial = Column(Enum(TipoMaterial))
-    Marca = Column(String(60))
-    Modelo = Column(String(100))
-    Estado = Column(Enum(Estatus))
+    TipoMaterial = Column(Enum(TipoMaterial),nullable=False)
+    Marca = Column(String(60), nullable=False)
+    Modelo = Column(String(100), nullable=False)
+    Estado = Column(Enum(Estatus), nullable=False)
+
+    prestamo = relationship("Prestamo", back_populates="material")

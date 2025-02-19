@@ -1,7 +1,7 @@
 """Definición del modelo de la tabla 'tbb_usuarios' en la base de datos."""
 
 import enum
-from pydantic import Secret
+from sqlalchemy.orm import relationship
 from sqlalchemy import Column, Integer, String, DateTime, Enum
 from config.db import Base
 
@@ -36,3 +36,5 @@ class User(Base):
     estatus = Column(Enum(Estatus))
     fechaRegistro = Column(DateTime)
     fechaActualizacion = Column(DateTime)
+
+    prestamo = relationship("Prestamo", back_populates="usuario")
